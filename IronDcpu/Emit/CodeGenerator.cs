@@ -37,6 +37,8 @@ namespace IronDcpu.Emit
 
         public Label DefineLabel()
         {
+            AssertNotFinished();
+
             Label label =  new Label(this);
             labels.Add(label);
             return label;
@@ -158,6 +160,8 @@ namespace IronDcpu.Emit
 
         public void EmitData(Label label)
         {
+            AssertNotFinished();
+
             ushort? nextWord;
             GetArgumentValue(label, CurrentBytePosition, out nextWord);
             WriteWord(stream, 0x0000);
@@ -195,6 +199,8 @@ namespace IronDcpu.Emit
 
         public void Finish()
         {
+            AssertNotFinished();
+
             PatchLabels();
             stream.Flush();
             Finished = true;
